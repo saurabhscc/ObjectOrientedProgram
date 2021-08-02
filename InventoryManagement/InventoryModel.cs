@@ -4,10 +4,10 @@ using System.Text;
 
 namespace ObjectOrientedProgram.InventoryManagement
 {
-    class InventoryModel
+    public class InventoryModel
     {
-        public string Name { get; set; }
-        public double Weight { get; set; }
-        public double PricePerKg { get; set; }
+        public List<Rice> riceList { get; set; }
+        public List<Wheat> wheatList { get; set; }
+        public List<Pulses> pulsesList { get; set; }
     }
 }

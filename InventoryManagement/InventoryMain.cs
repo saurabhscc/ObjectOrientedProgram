@@ -12,17 +12,34 @@ namespace ObjectOrientedProgram.InventoryManagement
         {
             try
             {
-                using (StreamReader read = new StreamReader(filepath))
+                if (File.Exists(filepath))
                 {
-                    var json = read.ReadToEnd();
+                    string jsonData = File.ReadAllText(filepath);
+                    InventoryModel jsonObjectArray = JsonConvert.DeserializeObject<InventoryModel>(jsonData);
 
-                    var items = JsonConvert.DeserializeObject<List<InventoryModel>>(json);
-                    Console.WriteLine("Name\tWeight\tPricePerkg");
-                    foreach (var item in items)
+                    Console.WriteLine("Name\tWeight\tRate\tAmount");
+
+                    List<Rice> rice = jsonObjectArray.riceList;
+                    foreach (var item in rice)
                     {
-                        Console.WriteLine("{0}" + "\t" + "{1}" + "\t" + "{2}" + "\t" + "{3}", item.Name, item.Weight, item.PricePerKg, item.Weight * item.PricePerKg);
+                        Console.WriteLine("{0}" + "\t" + "{1}" + "\t" + "{2}" + "\t" + "{3}", item.Name, item.Weight, item.PricePerkg, item.Weight * item.PricePerkg);
+                    }
+                    List<Wheat> wheat = jsonObjectArray.wheatList;
+                    foreach (var item in wheat)
+                    {
+                        Console.WriteLine("{0}" + "\t" + "{1}" + "\t" + "{2}" + "\t" + "{3}", item.Name, item.Weight, item.PricePerkg, item.Weight * item.PricePerkg);
+                    }
+                    List<Pulses> pulses = jsonObjectArray.pulsesList;
+                    foreach (var item in pulses)
+                    {
+                        Console.WriteLine("{0}" + "\t" + "{1}" + "\t" + "{2}" + "\t" + "{3}", item.Name, item.Weight, item.PricePerkg, item.Weight * item.PricePerkg);
                     }
                 }
+                else
+                {
+                    Console.WriteLine("\nSpecified file path does not exist");
+                }
+
             }
             catch (Exception e)
             {
